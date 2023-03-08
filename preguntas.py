@@ -101,7 +101,7 @@ def pregunta_06():
     ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 
     """
-    r = list(tbl0["_c4"].unique())
+    r = list(tbl1["_c4"].unique())
     s = []
     for i in r:
         j = i.upper()
