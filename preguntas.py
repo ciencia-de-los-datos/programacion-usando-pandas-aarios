@@ -187,7 +187,6 @@ def pregunta_10():
     tbl = tbl0.sort_values(['_c1', '_c2'], ascending = [True, True])
     s = tbl.groupby(['_c1'])['_c2'].apply(lambda x: ':'.join(x)).reset_index()
     s = s.rename(columns={'_c1':'_c0','_c2':'_c1'})
-    print(s)
     return s
 
 
