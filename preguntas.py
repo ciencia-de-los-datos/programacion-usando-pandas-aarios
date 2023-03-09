@@ -71,7 +71,8 @@ def pregunta_04():
     E    4.785714
     Name: _c2, dtype: float64
     """
-    return
+    s = tbl0.groupby(["_c1"])["_c2"].mean()
+    return s
 
 
 def pregunta_05():
@@ -182,7 +183,12 @@ def pregunta_10():
     3   D                  1:2:3:5:5:7
     4   E  1:1:2:3:3:4:5:5:5:6:7:8:8:9
     """
-    return
+    tbl0["_c2"] = tbl0["_c2"].astype("string")
+    tbl = tbl0.sort_values(['_c1', '_c2'], ascending = [True, True])
+    s = tbl.groupby(['_c1'])['_c2'].apply(lambda x: ':'.join(x)).reset_index()
+    s = s.rename(columns={'_c1':'_c0','_c2':'_c1'})
+    print(s)
+    return s
 
 
 def pregunta_11():
@@ -201,7 +207,9 @@ def pregunta_11():
     38   38      d,e
     39   39    a,d,f
     """
-    return
+    tbl = tbl1.sort_values(['_c0', '_c4'], ascending = [True, True])
+    s = tbl.groupby(["_c0"])["_c4"].apply(lambda x: ','.join(x)).reset_index()
+    return s
 
 
 def pregunta_12():
@@ -219,7 +227,11 @@ def pregunta_12():
     38   38                    eee:0,fff:9,iii:2
     39   39                    ggg:3,hhh:8,jjj:5
     """
-    return
+    tbl2["_c5b"] = tbl2["_c5b"].astype("string")
+    tbl = tbl2.sort_values(['_c0', '_c5a','_c5b'], ascending = [True, True, True])
+    tbl['_c5'] = tbl2['_c5a'] + ':' + tbl2['_c5b'] 
+    s = tbl.groupby(['_c0'])['_c5'].apply(lambda x: ','.join(x)).reset_index()
+    return s
 
 
 def pregunta_13():
@@ -236,4 +248,7 @@ def pregunta_13():
     E    275
     Name: _c5b, dtype: int64
     """
-    return
+    df = pd.merge(tbl0,tbl2,on = '_c0')
+    df = df[['_c0','_c1','_c5b']]
+    df = df.groupby(['_c1'])['_c5b'].sum()
+    return df
