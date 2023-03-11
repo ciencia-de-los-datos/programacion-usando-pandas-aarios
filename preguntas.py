@@ -185,9 +185,10 @@ def pregunta_10():
     """
     tbl0["_c2"] = tbl0["_c2"].astype("string")
     tbl = tbl0.sort_values(['_c1', '_c2'], ascending = [True, True])
-    s = tbl.groupby(['_c1'])['_c2'].apply(lambda x: ':'.join(x)).reset_index()
-    s = s.rename(columns={'_c1':'_c0','_c2':'_c1'})
-    return s
+    df = tbl0.groupby("_c1")["_c2"].apply(lambda x: ":".join(map(str,sorted(list(x)))))
+    new_df = pd.DataFrame(df)
+    return new_df
+
 
 
 def pregunta_11():
